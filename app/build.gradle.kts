@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -66,4 +67,41 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Splash Api
+    implementation(libs.androidx.core.splashscreen)
+
+    //Compose Navigation
+    implementation(libs.androidx.navigation)
+
+    //Dagger Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    //Coil
+    implementation(libs.coil.compose)
+
+    //Datastore
+    implementation(libs.androidx.datastore.preferences)
+
+    //Compose Foundation
+    implementation(libs.androidx.foundation)
+
+    //Accompanist
+    implementation(libs.accompanist.systemuicontroller)
+
+    //Paging 3
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
+    //Room
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }
