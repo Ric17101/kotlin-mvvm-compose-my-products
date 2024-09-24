@@ -12,7 +12,9 @@ android {
         applicationId = "com.net17.myproducts"
         minSdk = 26
         targetSdk = 34
-        val gitVersion = 100000 + Integer.parseInt("git rev-list HEAD --count".runCommand(project.rootDir)?.trim())
+        val gitVersion = 100000 + Integer.parseInt(
+            "git rev-list HEAD --count".runCommand(project.rootDir)?.trim()
+        )
         versionCode = gitVersion
         versionName = "1.0.0+$gitVersion"
 
@@ -20,6 +22,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "PRODUCTS_URL", "\"https://dummyjson.com/products/\"")
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -52,7 +61,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
