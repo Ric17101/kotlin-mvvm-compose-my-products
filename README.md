@@ -12,3 +12,8 @@
 - `GitHub Actions` for building apk and uploading artifact
 - Glide *(for image loading)*
 
+## License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+
+#### 🌟 If you find value in this project, please consider starring it! Your support keeps it thriving. 🚀

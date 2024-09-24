@@ -12,8 +12,9 @@ android {
         applicationId = "com.net17.myproducts"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        val gitVersion = 100000 + Integer.parseInt("git rev-list HEAD --count".runCommand(project.rootDir)?.trim())
+        versionCode = gitVersion
+        versionName = "1.0.0+$gitVersion"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -75,14 +76,13 @@ dependencies {
     implementation(libs.androidx.navigation)
 
     //Dagger Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-
+    implementation(libs.com.google.hilt.android)
+    ksp(libs.com.google.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     //Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation(libs.com.squareup.retrofit)
+    implementation(libs.com.squareup.converter.gson)
 
     //Coil
     implementation(libs.coil.compose)
@@ -94,7 +94,7 @@ dependencies {
     implementation(libs.androidx.foundation)
 
     //Accompanist
-    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.com.google.accompanist.systemuicontroller)
 
     //Paging 3
     implementation(libs.androidx.paging.runtime)
@@ -104,4 +104,20 @@ dependencies {
     implementation(libs.androidx.room)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+}
+
+fun String.runCommand(workingDir: File): String? {
+    return try {
+        val parts = this.split("\\s".toRegex())
+        val proc = ProcessBuilder(*parts.toTypedArray())
+            .directory(workingDir)
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.PIPE)
+            .start()
+        proc.waitFor(60, TimeUnit.MINUTES)
+        proc.inputStream.bufferedReader().readText()
+    } catch (e: java.io.IOException) {
+        e.printStackTrace()
+        null
+    }
 }
